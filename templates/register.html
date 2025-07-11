@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<head>
+<style type="text/css">
+	::placeholder{
+		color:#bbc2c7 !important;
+	}
+	.con_btn:hover{
+		transform: translateY(-3px);
+	    transition: all ease 0.3s;
+	}
+	input{
+		color: white !important;
+	}
+	input:hover{
+		border-color: #00d094 !important;
+	}
+	
+    .animated-text{
+      position: relative;
+      -webkit-box-reflect:below -10px linear-gradient(transparent, rgba(0,0,0,.2));
+      font-size: 60px;
+    }
+    .animated-text span{
+      font-family: 'Alfa Slab One', cursive;
+      position: relative;
+      display: inline-block;
+      color: white ;
+      text-transform: uppercase;
+      animation: animated-text 1s infinite;
+      animation-delay: calc(.1s * var(--i));
+
+    }
+
+    @keyframes animated-text{
+      0%, 40%, 100%{
+        transform: translateY(0);
+      }
+      20%{
+        transform: translateY(-20px);
+      }
+    }
+</style>
+</head>
+<body style="background-color:#00150f">
+	<div class="container-fluid">
+	<div class="row text-light p-5" style="height: 300px">
+		<div class="col-md-6">
+			<img src="{%static 'Photos/register.png' %}">
+		</div>
+		<div class="col-md-6" style="margin-left: -90px;">
+			<div class="animated-text"style="font-family: 'poppins',sans-serif; color: white; font-weight: bold; font-size: 80px;"><strong>
+		        <span style="--i:1">R</span>
+		        <span style="--i:2">E</span>
+		        <span style="--i:3">G</span>
+		        <span style="--i:4">I</span>
+		        <span style="--i:5">S</span>
+		        <span style="--i:6">T</span>
+		        <span style="--i:7">E</span>
+		        <span style="--i:8">R</span></strong>
+		    </div>
+		</div>
+	</div>
+	<div class="row mt-5 mb-5">
+		<div class="col-md-2"></div>
+		<div class="col-md-8 text-light" style="margin-left: 100px;">
+			<form class="p-5" style="background-color: #081108" action="" method="POST">
+				{% csrf_token %}
+				<h1>Create Your Account</h1>
+				<p style="color:#bbc2c7;">Hey there! Ready to join the party? We just need a few details from you to get<br>started. Let's do this!</p>
+				<div class="row">
+					<div class="col-md-12">
+						<hr>
+					</div>
+				</div><br>
+				<div class="row">
+					<div class="col-md-6">
+						<label><h5>First Name</h5></label>
+						<input type="text" placeholder="Ex.John" class="form-control border border-secondary pt-3 pb-3 ps-4 pe-4 shadow-none" style="background-color: #253a33;border-radius: 8px;" name="first_name"  required>
+					</div>
+					<div class="col-md-6">
+						<label><h5>Last Name</h5></label>
+						<input type="text" placeholder="Ex.John" class="form-control border border-secondary pt-3 pb-3 ps-4 pe-4 shadow-none" style="background-color: #253a33;border-radius: 8px;" pattern="[a-zA-Z]+" title="Must contain only alphabets" name="last_name">
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-md-12">
+						<label><h5>Email</h5></label>
+						<input type="email" placeholder="Enter your email" class="form-control border border-secondary pt-3 pb-3 ps-4 pe-4 shadow-none" style="background-color: #253a33;border-radius: 8px;" name="email" required>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-md-12">
+						<label><h5>Password</h5></label>
+						<input type="password" placeholder="Enter your password" class="form-control border border-secondary pt-3 pb-3 ps-4 pe-4 shadow-none" style="background-color: #253a33;border-radius: 8px;" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-md-12">
+						<label><h5>Confirm Password</h5></label>
+						<input type="password" placeholder="Re-type password" class="form-control border border-secondary pt-3 pb-3 ps-4 pe-4 shadow-none" style="background-color: #253a33;border-radius: 8px;" name="confirm_password" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<button class="form-control mt-4  pt-3 pb-3 ps-4 pe-4 border border-secondary shadow-none con_btn" style="background-color: #00d094; border-radius: 8px" type="submit"><b>Sign Up</b></button>
+					</div>
+				</div>
+				<div class="row mt-2">
+					<div class="col-md-12">
+						<div style="color:#bbc2c7; text-align: center; ">Already have an account?<a href="{% url 'login' %}"  style="color:#00d094;" class="ms-1">Login</a></div>
+					</div>
+				</div>	
+			</form>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+
+{% if msg == "password" %}
+	<script>
+		alert("Password and Confirm Password do not match")
+	</script>		
+{% endif %}
+{% endblock %}
+</body>

@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<style>
+		.card:hover{
+			border-color:#00d094 !important;
+		}
+	    .card{
+			margin-left: 20px;
+		}
+		.card:hover h5 {
+  			color: #00d094 !important;
+		}
+		
+  	
+</style>
+
+
+
+
+<body style="background-color:#00150f; color:white;">
+	<!--newsapi.org -->
+	<div class="row crd">
+		{% for i in k|slice:":6" %}
+		<div class="col-lg-4 col-md-6 p-2">
+			<div class="card border border-3 p-2 mb-5" style="width: 25rem; border-color: #00d094!important ; overflow: hidden; background-color: #253a33; color: white; height: 34rem;">
+				<img src="{% if i.urlToImage %}{{ i.urlToImage }}{% else %}{% static 'photos/featured_news.jpg' %}{% endif %}" alt="News Image" data-aos="zoom-in" class="card-img-top" height="200px;" width="100%">
+				<div class="card-body" style="text-align: justify;">
+					<h6 class="card-subtitle text-body-secondary" data-aos="fade-left"><span style="color: #bbc2c7;"><b>{{i.author|truncatechars:15}}</b></span>
+					<span class="ms-2" style="color: #bbc2c7">{{i.publishedAt|truncatechars:10}}</span></h6>
+					<p class="card-text mt-2 fs-5" style="color: white;" data-aos="fade-right">{{i.title|safe|truncatechars:45}}</p>
+					<div data-aos="fade-up"><p class="desc">{{i.content|safe|truncatechars:260}}</p></div>
+					<a href="{{i.url}}" target="_blank" class="btn button text-dark pt-2 pb-2 ps-4 pe-4" style="background-color: #00d094">Read more...</a>
+				</div> 
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+
+	<!--newsdata.in-->
+	<div class="row crd">
+		{% for i in k2|slice:":6" %}
+		<div class="col-lg-4 col-md-6 p-2">
+			<div class="card border border-3 p-2 mb-5" style="width: 25rem; border-color: #00d094!important ; overflow: hidden; background-color: #253a33; color: white; height: 34rem;">
+				<img src="{% if i.image_url %}{{ i.image_url }}{% else %}{% static 'photos/featured_news.jpg' %}{% endif %}" alt="News Image" data-aos="zoom-in" class="card-img-top" height="200px;" width="100%">
+				<div class="card-body" style="text-align: justify;">
+					<h6 class="card-subtitle text-body-secondary" data-aos="fade-left"><span style="color: #bbc2c7;"><b>{{i.creator|truncatechars:15}}</b></span>
+					<span class="ms-2" style="color: #bbc2c7">{{i.pubDate|truncatechars:10}}</span></h6>
+					<p class="card-text mt-2 fs-5" style="color: white;" data-aos="fade-right">{{i.title|safe|truncatechars:45}}</p>
+					<div data-aos="fade-up"><p class="desc">{{i.description|safe|truncatechars:260}}</p></div>
+					<a href="{{i.link}}" target="_blank" class="btn button text-dark pt-2 pb-2 ps-4 pe-4" style="background-color: #00d094">Read more...</a>
+				</div> 
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+
+	<!--currentapi.in-->
+	<div class="row crd">
+		{% for i in k3|slice:":6" %}
+		<div class="col-lg-4 col-md-6 p-2">
+			<div class="card border border-3 p-2 mb-5" style="width: 25rem; border-color: #00d094!important ; overflow: hidden; background-color: #253a33; color: white; height: 34rem;">
+				<img src="{% if i.image %}{{ i.image }}{% else %}{% static 'photos/featured_news.jpg' %}{% endif %}" alt="News Image" data-aos="zoom-in" class="card-img-top" height="200px;" width="100%">
+				<div class="card-body" style="text-align: justify;">
+					<h6 class="card-subtitle text-body-secondary" data-aos="fade-left"><span style="color: #bbc2c7;"><b>{{i.author|truncatechars:15}}</b></span>
+					<span class="ms-2" style="color: #bbc2c7">{{i.published|truncatechars:10}}</span></h6>
+					<p class="card-text mt-2 fs-5" style="color: white;" data-aos="fade-right">{{i.title|safe|truncatechars:45}}</p>
+					<div data-aos="fade-up"><p class="desc">{{i.description|safe|truncatechars:260}}</p></div>
+					<a href="{{i.url}}" target="_blank" class="btn button text-dark pt-2 pb-2 ps-4 pe-4" style="background-color: #00d094">Read more...</a>
+				</div> 
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+
+
+	
+
+<body>
+
+
+
+{% endblock%}
+
+
+
+def index(request):
+    default_image_url = '/static/images/default.jpg'  # Path to your default image
+
+    def process_articles(articles):
+        for article in articles:
+            if not article.get('description'):
+                continue
+            if not article.get('urlToImage'):
+                article['urlToImage'] = default_image_url
+        return articles
+
+    if not request.session.has_key('email'):
+        newsapi = NewsApiClient(api_key='40f8fa21da67431885edfaec3fa49ac4')
+        json_data = newsapi.get_everything(q='Featured News', language='en',
+                                           from_param=str(date.today()-datetime.timedelta(days=29)),
+                                           to=str(date.today()), page_size=18, page=1, sort_by='relevancy')
+        k = process_articles([article for article in json_data['articles'] if article.get('description')])
+
+        newsdataapi = NewsDataApiClient(apikey="pub_4803543aad1630f176c16b82b79178ac7d53f")
+        response = newsdataapi.news_api(q="Featured News", language='en')
+        k2 = process_articles([article for article in response['results'] if article.get('description')])
+
+        url = 'https://api.currentsapi.services/v1/latest-news?apiKey=oo1oBEjFkxw9zYAOHvPaaqf2vOwAJv3e2QEikaAt5h67Gmz9'
+        response2 = requests.get(url)
+        if response2.status_code == 200:
+            news_data = response2.json()
+            news_list = process_articles([article for article in news_data.get('news', []) if article.get('description')])
+        else:
+            news_list = []
+            print("Failed to retrieve data")
+
+        return render(request, 'index.html', {'login': login, 'k': k, 'k2': k2, 'k3': news_list})
+    else:
+        newsapi = NewsApiClient(api_key='40f8fa21da67431885edfaec3fa49ac4')
+        json_data = newsapi.get_everything(q='Featured News', language='en',
+                                           from_param=str(date.today()-datetime.timedelta(days=29)),
+                                           to=str(date.today()), page_size=18, page=1, sort_by='relevancy')
+        k = process_articles([article for article in json_data['articles'] if article.get('description')])
+
+        newsdataapi = NewsDataApiClient(apikey="pub_4803543aad1630f176c16b82b79178ac7d53f")
+        response = newsdataapi.news_api(q="Featured News", language='en')
+        k2 = process_articles([article for article in response['results'] if article.get('description')])
+
+        url = 'https://api.currentsapi.services/v1/latest-news?apiKey=oo1oBEjFkxw9zYAOHvPaaqf2vOwAJv3e2QEikaAt5h67Gmz9'
+        response2 = requests.get(url)
+        if response2.status_code == 200:
+            news_data = response2.json()
+            news_list = process_articles([article for article in news_data.get('news', []) if article.get('description')])
+        else:
+            news_list = []
+            print("Failed to retrieve data")
+
+        return render(request, 'index.html', {'logout': logout, 'k': k, 'k2': k2, 'k3': news_list})
+

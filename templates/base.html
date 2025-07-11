@@ -1,0 +1,222 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href='{%static "css\bootstrap.min.css" %}'>
+  <link rel="stylesheet" type="text/css" href='{%static "icofont\icofont.min.css" %}'>
+  <script src='{%static "js/bootstrap.bundle.min.js" %}'></script>
+  <style type="text/css">
+    .con_btn:hover{
+      color:#000 !important;
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 5px #fff, 0 0 25px #fff, 0 0 50px #fff, 0 0 100px #fff;
+      transition: .5s ease-in-out;
+    }
+    .con_btn{
+      background: #00d094;
+      font-weight: bold;
+    }
+
+    .nav-item a{
+      position: relative;
+      overflow: hidden;
+      border-radius: 5px;
+    }
+    .nav-item a:hover{
+      color:#000 !important;
+      background: #00d094;
+      border-radius: 5px;
+      box-shadow: 0 0 5px #00d094, 0 0 25px #00d094, 0 0 50px #00d094, 0 0 100px #00d094;
+      transition: .5s ease-in-out;
+    }
+
+    .nav-item button {
+      position: relative;
+      overflow: hidden;
+      border-radius: 5px;
+      color: white; /* Initial text color */
+      background: transparent; /* Initial background */
+      border: none; /* Remove default button border */
+      padding: 10px 20px; /* Adjust padding as needed */
+      cursor: pointer; /* Change cursor to pointer */
+      transition: background 0.5s ease-in-out, color 0.5s ease-in-out, box-shadow 0.5s ease-in-out; /* Add transitions */
+    }
+
+    .nav-item button:hover {
+      color: #000 !important;
+      background: #00d094;
+      box-shadow: 0 0 5px #00d094, 0 0 25px #00d094, 0 0 50px #00d094, 0 0 100px #00d094;
+    }
+    body{
+      overflow-x: hidden;
+    }
+    .icon:hover{
+      color: #00d094 !important;
+      border-color: #00d094 !important;
+
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar sticky-top navbar-expand-lg ps-4 pe-4" style="background-color:#081108">
+    <div class="container-fluid fs-5">
+      <span class="navbar-brand fs-3" href="#" style="color: white; font-family: Brush Script MT;">News<span style="color: #00d094"> Fusion</span></span>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="border-color: #00d094 !important; box-shadow: none;">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
+          <li class="nav-item me-2">
+            <a class="nav-link " aria-current="page" href="{% url 'index' %}"  style="color: white;" ><i class="icofont-home me-1"></i>Home</a>
+          </li>
+
+          <li class="nav-item me-2">
+            <a class="nav-link " aria-current="page" href="{% url 'about' %}"  style="color: white;" ><i class="icofont-info me-1"></i>About Us</a>
+            </a>
+          </li>
+  
+
+
+          <li class="nav-item me-2">
+            <a class="nav-link" href="{% url 'help' %}" style="color: white;"><i class="icofont-support me-1"></i>Support</a>
+          </li>
+
+          <li class="nav-item me-2">
+            <a class="nav-link" href="{% url 'review' %}" style="color: white;"><i class="icofont-pen me-1"></i>Review</a>
+          </li>
+
+          <li class="nav-item me-2">
+            <button class="nav-link filter" style="color: white;" data-bs-toggle="modal" data-bs-target="#filterModal"><i class="icofont-filter me-1">&nbsp;Filters</i></button>
+          </li>
+
+            <li>
+              <form method="POST" action="{% url 'index' %}">
+                {% csrf_token %}
+                <div class="Search mt-1" style="margin-left: 100px;">
+                  <input type="text" name="name" placeholder="Search..." class="border name" style="" required>
+                  <button type="submit" style="border: none; background: transparent;"><i class="icofont-ui-search border p-1" style="background-color: grey"></i></button>
+                </div>
+              </form>
+            </li>
+        </ul>
+        {% if login %}<a href="{% url 'login' %}">
+          <div class="btn text-dark pt-2 pb-2 ps-4 pe-4 con_btn">Login</div></a>
+        {% else %}
+        <a href="{% url 'logout' %}"><div class="btn text-dark pt-2 pb-2 ps-4 pe-4 con_btn">Logout</div></a>
+        {% endif %}
+        
+      </div>
+    </div>
+  </nav>
+
+<!-- Modal -->
+<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content" style="background-color: #253a33; color: white !important;">
+      <div class="modal-header">
+        <center><h1 class="" style="color: #00d094;">Select Any Filter Option</h1></center>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: #00d094 !important"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{% url 'index' %}">
+          {% csrf_token %}
+          <h3 style="color: #00d094">Category</h3>
+          <div id="categoryGroup">
+              <div><input type="radio" name="category" value="politics"> Politics</div>
+              <div><input type="radio" name="category" value="business"> Business</div>
+              <div><input type="radio" name="category" value="technology"> Technology</div>
+              <div><input type="radio" name="category" value="lifestyle"> Lifestyle</div>
+              <div><input type="radio" name="category" value="entertainment"> Entertainment</div>
+              <div><input type="radio" name="category" value="sports"> Sports</div>
+              <div><input type="radio" name="category" value="finance"> Finance</div>
+              <div><input type="radio" name="category" value="education"> Education</div>
+              <div><input type="radio" name="category" value="health"> Health</div>
+              <div><input type="radio" name="category" value="food"> Food</div>
+              <div><input type="radio" name="category" value="culture"> Culture</div>
+              <div><input type="radio" name="category" value="economy"> Economy</div>
+              <div><input type="radio" name="category" value="celebrity"> Celebrity</div>
+              <div><input type="radio" name="category" value="environment"> Environment</div>
+              <div><input type="radio" name="category" value="movie"> Movie</div>
+              <div><input type="radio" name="category" value="tourism"> Tourism</div>
+              <div><input type="radio" name="category" value="crime"> Crime</div>
+          </div>
+
+          <h3 style="color: #00d094">Language</h3>
+          <div id="languageGroup">
+              <div><input type="radio" name="language" value="en"> English</div>
+              <div><input type="radio" name="language" value="es"> Spanish</div>
+              <div><input type="radio" name="language" value="fr"> French</div>
+              <div><input type="radio" name="language" value="de"> German</div>
+              <div><input type="radio" name="language" value="zh"> Chinese</div>
+              <div><input type="radio" name="language" value="it"> Italian</div>
+              <div><input type="radio" name="language" value="ru"> Russian</div>
+              <div><input type="radio" name="language" value="ar"> Arabic</div>
+              <div><input type="radio" name="language" value="he"> Hebrew</div>
+              <div><input type="radio" name="language" value="nl"> Dutch</div>
+              <div><input type="radio" name="language" value="no"> Norwegian</div>
+              <div><input type="radio" name="language" value="pt"> Portuguese</div>
+          </div>
+
+          <h3 style="color: #00d094">Sort By</h3>
+          <div id="sortGroup">
+              <div><input type="radio" name="sort" value="relevancy">Relevancy</div>
+              <div><input type="radio" name="sort" value="popularity">Popularity</div>
+              <div><input type="radio" name="sort" value="publishedAt">Newest</div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" id="applyButton" disabled>Apply</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const applyButton = document.getElementById('applyButton');
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    
+    radioButtons.forEach(radio => {
+      radio.addEventListener('change', function() {
+        applyButton.disabled = !Array.from(radioButtons).some(radio => radio.checked);
+      });
+    });
+  });
+</script>
+
+
+<main>
+{% block content %}
+
+
+
+{% endblock %}
+</main>
+
+
+
+<footer style="position: relative; left: 0; bottom: 0; z-index: 10;">
+      <div class="row mt-3 text-light p-4" style="background-color: #081108">
+        <div class="col-md-6 col-5" style="color:#bbc2c7">
+          <i class="icofont-copyright me-2"></i>2024 All Rights Reserved By<span style="color:#00d094">&nbsp;Fusion</span>
+        </div>
+        <div class="col-md-6 col-7" style="text-align: right;">
+          <a href="https://twitter.com/" class="shadow-none" style="text-decoration: none; color: white;"><i class="icofont-twitter border border-secondary p-2 rounded-circle me-2 icon"></i></a>
+          <a href="https://www.facebook.com/" class="shadow-none" style="text-decoration: none; color: white;"><i class="icofont-facebook border  border-secondary p-2 rounded-circle me-2 icon "></i>
+          </a>
+          <a href="https://www.youtube.com/" class="shadow-none" style="text-decoration: none; color: white;"><i class="icofont-youtube-play border border-secondary p-2 rounded-circle me-2 icon"></i>
+          </a>
+          <a href="https://www.instagram.com/" class="shadow-none" style="text-decoration: none; color: white;"><i class="icofont-instagram border border-secondary p-2 rounded-circle me-2 icon"></i>
+          </a>
+          <a href="https://www.linkedin.com/home" class="shadow-none" style="text-decoration: none; color: white;"><i class="icofont-linkedin border border-secondary p-2 rounded-circle me-2 icon"></i></a>
+        </div>
+      </div>
+</footer>
+</body>
+</html>

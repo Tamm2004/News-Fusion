@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<head>
+  <style type="text/css">
+    ::placeholder{
+      color:#bbc2c7 !important;
+    }
+    input{
+      color: white !important;
+    }
+    input:hover{
+      border-color: #00d094 !important;
+    }
+    textarea{
+      color: white !important;
+      height: 200px;
+    }
+    textarea:hover{
+      border-color: #00d094 !important;
+    }
+    .carousel {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .carousel-container {
+      display: flex; /* Make the slides appear in a row */
+      transition: transform 0.5s ease; /* Smooth sliding animation */
+      font-style: italic;
+    }
+
+    .carousel-slide {
+      flex: 0 0 auto; /* Prevent slides from growing to fill space */
+      width: 100%; /* Ensure each slide takes up full width */
+    }
+
+    
+      .animated-text{
+        position: relative;
+        -webkit-box-reflect:below -10px linear-gradient(transparent, rgba(0,0,0,.2));
+        font-size: 60px;
+      }
+      .animated-text span{
+        font-family: 'Alfa Slab One', cursive;
+        position: relative;
+        display: inline-block;
+        color: white ;
+        text-transform: uppercase;
+        animation: animated-text 1s infinite;
+        animation-delay: calc(.1s * var(--i));
+  
+      }
+  
+      @keyframes animated-text{
+        0%, 40%, 100%{
+          transform: translateY(0);
+        }
+        20%{
+          transform: translateY(-20px);
+        }
+      }
+  </style>
+</head>
+<body style="background-color:#00150f;">
+	<div class="container-fluid">
+	<div class="row text-light p-5" style="height: 300px">
+		<div class="col-md-6">
+			<img src="">
+		</div>
+		<div style="margin-top: 50px; text-align: center;">
+			<div class="animated-text" style="font-family: 'poppins',sans-serif; color: white; font-weight: bold; font-size: 80px;"><strong>
+		        <span style="--i:1">A</span>
+		        <span style="--i:2">B</span>
+		        <span style="--i:3">O</span>
+		        <span style="--i:4">U</span>
+		        <span style="--i:5">T</span>
+		        <span style="--i:6"> </span>
+		        <span style="--i:7">U</span>
+		        <span style="--i:8">S</span>
+		        </strong>
+		    </div>
+		</div>
+	</div>
+  </div>
+	<div class="row mt-5 mb-5">
+		<div class="col-md-2"></div>
+		<div class="text-light" style="padding: 100px;">
+				<h1>Welcome to our <span style="color: #00d094">About Us</span> page!</h1>
+				<p style="color:#bbc2c7;">Here you can find out more about how our website works and what features it provides for you to take advantage of.</p>
+				<div class="row">
+					<div class="col-md-12">
+						<hr>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-md-12">
+						<label><h5>About News <span style="color: #00d094">Fusion</span>...</h5></label>
+						<p style="color:#bbc2c7; text-align: justify;">News <span style="color: #00d094">Fusion</span> is a place where you will find news gathered from a variety of sources to provide you with the most recent, accurate and diverse news sources from around the globe.
+              The news presented to you in the Featured section will be tailored to you as per your preferences. As you browse through our website, News <span style="color: #00d094">Fusion</span> will pick up on the category(s) of news you frequent, thus providing with featured news dedicated to those categories.
+              <br><br>You will find news from more light-hearted categories such as Entertainment further below. You can also search for a specific news using the search bar found in the navigation menu. The search bar will provide you with news depending on the category, keyword or the name of an involved individual.</p>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-md-12">
+						<label><h5>Contact details:</h5></label>
+						<p style="color:#bbc2c7; text-align: justify;">Email: abc123@gmail.com
+              <br>Phone: +91 123-456-7890
+              <br><br>Twitter: <a href="https://twitter.com/" class="shadow-none" style="text-decoration: none; color: white;"><i class="icofont-twitter border border-secondary p-2 rounded-circle me-2 icon"></i></a>
+              Facebook: <a href="https://www.facebook.com/" class="shadow-none" style="text-decoration: none; color: white;"><i class="icofont-facebook border  border-secondary p-2 rounded-circle me-2 icon "></i></a>
+              YouTube: <a href="https://www.youtube.com/" class="shadow-none" style="text-decoration: none; color: white;"><i class="icofont-youtube-play border border-secondary p-2 rounded-circle me-2 icon"></i></a>
+              Instagram: <a href="https://www.instagram.com/" class="shadow-none" style="text-decoration: none; color: white;"><i class="icofont-instagram border border-secondary p-2 rounded-circle me-2 icon"></i></a>
+              LinkedIn: <a href="https://www.linkedin.com/home" class="shadow-none" style="text-decoration: none; color: white;"><i class="icofont-linkedin border border-secondary p-2 rounded-circle me-2 icon"></i></a>
+            </p>
+						<br><label><h5>Location:</h5></label>
+            <br><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7547.454856408999!2d72.82244329550811!3d18.94345528401907!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ce1e13a1339f%3A0xd05e2556e0fcbe60!2sMarine%20Drive%20Beach!5e0!3m2!1sen!2sin!4v1721836384511!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+					</div>
+				</div>
+        <div class="row">
+					<div class="col-md-12">
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+  <div class="col-md-12">
+    <label><h5>User Reviews:</h5></label>
+    <div class="carousel">
+      <br>
+      <div class="carousel-container">
+        {% for review in all_reviews %}
+        <div class="carousel-slide">
+          <p style="color:#bbc2c7; text-align: center;">
+            "{{ review.message }}"
+            <br><br>- {{ review.email }}
+          </p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+<script>
+  let currentIndex = 0;
+  const slides = document.querySelectorAll('.carousel-slide');
+  const totalSlides = slides.length;
+
+  function showSlide(index) {
+    if (index < 0 || index >= totalSlides) return;
+
+    const container = document.querySelector('.carousel-container');
+    const slideWidth = slides[0].clientWidth; // Assuming all slides are of equal width
+
+    container.style.transform = `translateX(-${index * slideWidth}px)`;
+    currentIndex = index;
+  }
+
+  // Example: Automatically advance the carousel every 6 seconds
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    showSlide(currentIndex);
+  }, 6000);
+</script>
+{% endblock %}
+</body>

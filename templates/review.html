@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<head>
+  <style type="text/css">
+    ::placeholder{
+      color:#bbc2c7 !important;
+    }
+    input{
+      color: white !important;
+    }
+    input:hover{
+      border-color: #00d094 !important;
+    }
+    textarea{
+      color: white !important;
+      height: 200px;
+    }
+    textarea:hover{
+      border-color: #00d094 !important;
+    }
+    
+      .animated-text{
+        position: relative;
+        -webkit-box-reflect:below -10px linear-gradient(transparent, rgba(0,0,0,.2));
+        font-size: 60px;
+      }
+      .animated-text span{
+        font-family: 'Alfa Slab One', cursive;
+        position: relative;
+        display: inline-block;
+        color: white ;
+        text-transform: uppercase;
+        animation: animated-text 1s infinite;
+        animation-delay: calc(.1s * var(--i));
+  
+      }
+  
+      @keyframes animated-text{
+        0%, 40%, 100%{
+          transform: translateY(0);
+        }
+        20%{
+          transform: translateY(-20px);
+        }
+      }
+  </style>
+</head>
+<body style="background-color:#00150f;">
+	<div class="container-fluid">
+	<div class="row text-light p-5" style="height: 300px">
+		<div class="col-md-6">
+			<img src="{%static 'Photos/register.png' %}">
+		</div>
+		<div class="col-md-6" style="margin-left: -90px; margin-top: 50px;">
+			<div class="animated-text" style="font-family: 'poppins',sans-serif; color: white; font-weight: bold; font-size: 80px;"><strong>
+		        <span style="--i:1">R</span>
+		        <span style="--i:2">E</span>
+		        <span style="--i:3">V</span>
+		        <span style="--i:4">I</span>
+		        <span style="--i:5">E</span>
+		        <span style="--i:6">W</span>
+		        <span style="--i:7">S</span>
+		        </strong>
+		    </div>
+		</div>
+	</div>
+  </div>
+	<div class="row mt-5 mb-5">
+		<div class="col-md-2"></div>
+		<div class="col-md-8 text-light" style="margin-left: 100px;">
+			<form class="p-5" style="background-color: #081108; border-radius:25px;" action="" method="POST">
+				{% csrf_token %}
+				<h1>Welcome to our <span style="color: #00d094">Reviews</span> page!</h1>
+				<p style="color:#bbc2c7;">Here you can leave a review about us for others to see! Please leave an honest review and if there was anything you didn't like, mention it and why so that we may learn from our mistakes.</p>
+				<div class="row">
+					<div class="col-md-12">
+						<hr>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-md-12">
+						<label><h5>Email</h5></label>
+						<input type="email" placeholder="Enter your email" class="form-control border border-secondary pt-3 pb-3 ps-4 pe-4 shadow-none" style="background-color: #253a33;border-radius: 8px;" name="email" value={{email}} required>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-md-12">
+						<label><h5>Leave a review</h5></label>
+						<textarea type="text" placeholder="Type your review here" class="form-control border border-secondary pt-3 pb-3 ps-4 pe-4 shadow-none" style="background-color: #253a33;border-radius: 8px;" name="review" required></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<button class="form-control mt-4  pt-3 pb-3 ps-4 pe-4 border border-secondary shadow-none con_btn" style="background-color: #00d094; border-radius: 8px" type="submit"><b>Submit Review</b></button>
+					</div>
+				</div>	
+			</form>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+
+
+{% if msg %}
+<script type="text/javascript">
+	alert("Review added successfully")
+</script>
+{% endif %}
+{% endblock %}
+</body>

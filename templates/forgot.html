@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<head>
+<style type="text/css">
+	::placeholder{
+		color:#bbc2c7 !important;
+	}
+	.con_btn:hover{
+		transform: translateY(-3px);
+	    transition: all ease 0.3s;
+	}
+	input{
+		color: white !important;
+	}
+	input:hover{
+		border-color: #00d094 !important;
+	}
+    .animated-text{
+      position: relative;
+      -webkit-box-reflect:below -10px linear-gradient(transparent, rgba(0,0,0,.2));
+      font-size: 60px;
+    }
+    .animated-text span{
+      font-family: 'Alfa Slab One', cursive;
+      position: relative;
+      display: inline-block;
+      color: white ;
+      text-transform: uppercase;
+      animation: animated-text 1s infinite;
+      animation-delay: calc(.1s * var(--i));
+
+    }
+
+    @keyframes animated-text{
+      0%, 40%, 100%{
+        transform: translateY(0);
+      }
+      20%{
+        transform: translateY(-20px);
+      }
+    }
+</style>
+</head>
+<body style="background-color:#00150f">
+	<div class="container-fluid">
+		{% if rest %}
+			<center>
+			<h5 class="mt-3" style="color: #00d094;">{{rest}}</h5>
+			</center>
+		{% endif %}
+
+		{% if res %}
+			<center>
+			<h5 class="mt-3" style="color: red;">*{{res}}</h5>
+			</center>
+		{% endif %}
+	<div class="row text-light p-5 mt-3 mb-3 hdr" style="height: 300px">
+		<div class="col-md-6 ph">
+			<img src="{%static 'Photos/forgot.png' %}" style=" margin-top: -50px;">
+		</div>
+		<div class="col-md-6 hdg" style="margin-left: -90px; margin-top: 50px;">
+			<div class="animated-text" style="font-family: 'poppins',sans-serif; color: white; font-weight: bold; font-size: 80px;"><strong>
+		        <span style="--i:1">F</span>
+		        <span style="--i:2">O</span>
+		        <span style="--i:3">R</span>
+		        <span style="--i:4">G</span>
+		        <span style="--i:5">O</span>
+		        <span style="--i:5">T</span>
+		        </strong>
+		    </div>
+		</div>
+	</div>
+	<div class="row mt-5">
+		<div class="col-md-2"></div>
+		<div class="col-md-8 text-light mb-5">
+			<form class="p-5" style="background-color: #081108; color: white;" action="" method="POST">
+				{% csrf_token %}
+				<h1>Forgot Password</h1>
+				<p style="color:#bbc2c7;">Hey there! Forgot your password? We just need your email to create a<br>new password. Let's do this!</p>
+				<div class="row">
+					<div class="col-md-12">
+						<hr>
+					</div>
+				</div><br>
+				<div class="row mt-3">
+					<div class="col-md-12">
+						<label><h5>Email</h5></label>
+						<input type="email" name="email" placeholder="Enter your email" class="form-control border border-secondary pt-3 pb-3 ps-4 pe-4 shadow-none" style="background-color: #253a33;border-radius: 8px;" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<button type="submit" class="form-control mt-4  pt-3 pb-3 ps-4 pe-4 border border-secondary shadow-none" style="background-color: #00d094; border-radius: 8px"><b>Get Password</b></button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+
+{% endblock %}
